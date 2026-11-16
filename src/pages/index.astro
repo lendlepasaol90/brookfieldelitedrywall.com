@@ -5,6 +5,7 @@ import Arrow from '../components/Arrow.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import EstimateForm from '../components/EstimateForm.astro';
 import { site } from '../config/site';
 import { services } from '../data/services';
 import { photo } from '../lib/photos';
@@ -49,19 +50,26 @@ const schema = [
         quality={70}
       />
     </div>
-    <div class="wrap hero-body">
-      <p class="kicker fade" style="--d:.1s">Drywall contractor in {site.city}, {site.state}</p>
-      <h1>
-        <span class="line" style="--i:0"><span>Hung true.</span></span>
-        <span class="line" style="--i:1"><span>Finished flat.</span></span>
-        <span class="line" style="--i:2"><span>Left spotless.</span></span>
-      </h1>
-      <p class="hero-sub fade" style="--d:.65s">
-        {site.name} installs, repairs and finishes walls and ceilings for homes and commercial spaces across {site.city}. One patch or a whole building, the standard stays the same.
-      </p>
-      <div class="hero-actions fade" style="--d:.8s">
-        <a class="btn btn-primary" href="/estimate/" data-estimate-open>Get a free estimate <Arrow /></a>
-        <a class="btn btn-ghost" href="#services">Explore our services</a>
+    <div class="wrap hero-body hero-split">
+      <div class="hero-copy">
+        <p class="kicker fade" style="--d:.1s">Drywall contractor in {site.city}, {site.state}</p>
+        <h1>
+          <span class="line" style="--i:0"><span>Hung true.</span></span>
+          <span class="line" style="--i:1"><span>Finished flat.</span></span>
+          <span class="line" style="--i:2"><span>Left spotless.</span></span>
+        </h1>
+        <p class="hero-sub fade" style="--d:.65s">
+          {site.name} installs, repairs and finishes walls and ceilings for homes and commercial spaces across {site.city}. One patch or a whole building, the standard stays the same.
+        </p>
+        <div class="hero-actions fade" style="--d:.8s">
+          <a class="btn btn-primary" href="#hero-estimate">Get a free estimate <Arrow /></a>
+          <a class="btn btn-ghost" href="#services">Explore our services</a>
+        </div>
+      </div>
+      <div class="hero-form fade" id="hero-estimate" style="--d:.9s">
+        <h2>Get a free estimate</h2>
+        <p>Tell us about the job. We reply with a written scope and price.</p>
+        <EstimateForm idPrefix="hero" compact />
       </div>
     </div>
     <div class="hero-rail fade" style="--d:1s">

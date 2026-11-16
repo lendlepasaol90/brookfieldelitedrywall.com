@@ -6,12 +6,12 @@
  */
 import { site } from '../config/site';
 import { services } from '../data/services';
-interface Props { idPrefix: string }
-const { idPrefix: p } = Astro.props;
+interface Props { idPrefix: string; compact?: boolean }
+const { idPrefix: p, compact = false } = Astro.props;
 const f = site.form;
 ---
 <form
-  class="est-form"
+  class:list={['est-form', { compact }]}
   novalidate
   data-estimate-form
   data-endpoint={f.endpoint}

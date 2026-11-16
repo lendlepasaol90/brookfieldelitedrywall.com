@@ -1,0 +1,25 @@
+---
+import { site, telHref } from '../config/site';
+import Arrow from './Arrow.astro';
+interface Props { heading?: string; text?: string; service?: string }
+const {
+  heading = 'Tell us about the walls. We will tell you what it takes.',
+  text = `Estimates are free and written down. Describe the project, add a few photos if you have them, and we will come back with a clear scope and price.`,
+  service,
+} = Astro.props;
+---
+<section class="section bg-forest cta-band on-dark">
+  <div class="wrap">
+    <h2 class="reveal">{heading}</h2>
+    <div class="side reveal" style="--d:.12s">
+      <p>{text}</p>
+      <a class="btn btn-primary" href="/estimate/" data-estimate-open data-service={service}>Get a free estimate <Arrow /></a>
+      {(site.phone || site.email) && (
+        <div class="contact-lines">
+          {site.phone && <a href={telHref}>{site.phone}</a>}
+          {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site } from '../../config/site';
+import { services } from '../../data/services';
+import { photo } from '../../lib/photos';
+
+const title = 'Drywall Services in Brookfield, WI | Brookfield Elite Drywall';
+const description = 'Twelve drywall services in Brookfield, WI: installation, taping, finishing, patching, ceiling and water damage repair, popcorn removal, basements and more.';
+const schema = [
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services/` },
+  ] },
+  { '@type': 'ItemList', itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${site.url}/services/${s.slug}/` })) },
+];
+---
+<Base title={title} description={description} schema={schema}>
+  <section class="page-hero" style="padding-bottom:clamp(2.5rem,6vw,5rem)">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol><li><a href="/">Home</a></li><li aria-current="page">Services</li></ol>
+      </nav>
+      <h1 style="max-width:16ch">Drywall services in {site.city}</h1>
+      <p class="lead" style="margin-top:1.5rem;max-width:42rem">New board, old damage, and every stage between bare studs and a wall that is ready for paint. Each service below has its own page describing how we go about it, what it involves and what to expect.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap card-grid">
+      {services.map((s, i) => (
+        <a class="related-card reveal" href={`/services/${s.slug}/`} style={`--d:${(i % 3) * 0.08}s`}>
+          <figure><Picture src={photo(s.photo)} alt={s.photoAlt} widths={[400, 640, 900]} sizes="(min-width: 60rem) 30vw, (min-width: 36rem) 46vw, 100vw" formats={['avif', 'webp']} loading={i < 3 ? 'eager' : 'lazy'} /></figure>
+          <h2>{s.name}</h2>
+          <p>{s.short}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+  <CtaBand heading="Not sure which of these you need?" text="Describe what you are looking at and send a photo. We will tell you which service applies and what it is likely to involve." />
+</Base>

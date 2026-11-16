@@ -1,0 +1,251 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../config/site';
+import { services } from '../data/services';
+import { photo } from '../lib/photos';
+
+const title = 'Brookfield Elite Drywall | Drywall Contractor in Brookfield, WI';
+const description =
+  'Drywall installation, repair and finishing for homes and businesses in Brookfield, Wisconsin. Level 5 finishes, ceiling repair, basements. Free estimates.';
+
+const levels = [
+  { n: 0, name: 'Board only', text: 'Panels are fastened and nothing else. No tape, no compound.', use: 'Temporary construction, or where the finish has not been decided yet.' },
+  { n: 1, name: 'Tape set in compound', text: 'Joints are taped and embedded. Tool marks and ridges are acceptable because nobody will see them.', use: 'Above ceilings, attics, service corridors and other concealed areas.' },
+  { n: 2, name: 'One thin coat', text: 'A skim over the tape and a first coat on fasteners and corner bead.', use: 'Garages, storage rooms and walls that will be covered with tile.' },
+  { n: 3, name: 'Two coats', text: 'A second coat over tape and fasteners, left free of ridges but not polished.', use: 'Walls that will receive a medium or heavy texture before paint.' },
+  { n: 4, name: 'Three coats, sanded', text: 'A third, wider coat on every joint and fastener, sanded smooth. The usual residential standard.', use: 'Most rooms finished in flat or matte paint or light texture.' },
+  { n: 5, name: 'Full skim coat', text: 'Everything in Level 4, then a thin coat of compound across the whole surface so paper and joints absorb paint identically.', use: 'Gloss and satin paints, dark colors, long walls and any room with raking light.' },
+];
+
+const faqs = [
+  { q: 'Do you take small repairs, or only large projects?', a: 'Both. A single ceiling crack or a doorknob hole is everyday work for us, and so is boarding a whole house or a commercial suite. Small jobs are often scheduled around larger ones, so tell us your timing when you ask for a price.' },
+  { q: 'How does the free estimate work?', a: 'Send the form with a description and, ideally, a few photos. For simple repairs we can often quote from those. For installations and larger repairs we arrange a visit to measure. Either way you receive a written scope and price, with no obligation to proceed.' },
+  { q: 'How long does drywall work take?', a: 'Hanging is fast; finishing is governed by drying time. A patch may take one or two visits. A room is typically about a week from first sheet to ready-for-paint, and a basement around two. We give a schedule with every estimate.' },
+  { q: 'How do you keep dust out of the rest of the house?', a: 'Work areas are closed off with plastic, floors and air returns are covered, and sanding is done with vacuum-attached tools. We vacuum again before we leave each day.' },
+  { q: 'Do you work with builders, remodelers and property managers?', a: 'Yes. A good share of our work is as the drywall trade on someone else’s project, and we are used to fitting into a schedule, a set of drawings and a building’s rules.' },
+  { q: `Which areas do you cover?`, a: `We are based around ${site.city} and take work throughout the city and in neighboring communities, including ${site.serviceAreas.slice(1, 5).join(', ')} and others nearby. If you are a little further out, ask.` },
+];
+
+const schema = [
+  { '@type': 'FAQPage', '@id': `${site.url}/#faq`, mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title={title} description={description} overHero schema={schema}>
+  <section class="hero on-dark">
+    <div class="hero-media">
+      <Picture
+        src={photo('finished-living-room-smooth-walls')}
+        alt="Bright, newly finished room with smooth walls and ceiling, wood floors and tall windows"
+        widths={[768, 1200, 1600, 2400]}
+        sizes="100vw"
+        formats={['avif', 'webp']}
+        loading="eager"
+        fetchpriority="high"
+        quality={70}
+      />
+    </div>
+    <div class="wrap hero-body">
+      <p class="kicker fade" style="--d:.1s">Drywall contractor in {site.city}, {site.state}</p>
+      <h1>
+        <span class="line" style="--i:0"><span>Hung true.</span></span>
+        <span class="line" style="--i:1"><span>Finished flat.</span></span>
+        <span class="line" style="--i:2"><span>Left spotless.</span></span>
+      </h1>
+      <p class="hero-sub fade" style="--d:.65s">
+        {site.name} installs, repairs and finishes walls and ceilings for homes and commercial spaces across {site.city}. One patch or a whole building, the standard stays the same.
+      </p>
+      <div class="hero-actions fade" style="--d:.8s">
+        <a class="btn btn-primary" href="/estimate/" data-estimate-open>Get a free estimate <Arrow /></a>
+        <a class="btn btn-ghost" href="#services">Explore our services</a>
+      </div>
+    </div>
+    <div class="hero-rail fade" style="--d:1s">
+      <div class="wrap">
+        <ul>
+          <li><a href="/services/residential-drywall-services/"><strong>For homes</strong><span>Remodels, additions, basements</span></a></li>
+          <li><a href="/services/commercial-drywall-services/"><strong>For businesses</strong><span>Offices, retail, tenant build-outs</span></a></li>
+          <li><a href="/services/drywall-repair/"><strong>For repairs</strong><span>Cracks, holes, water damage, ceilings</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ivory">
+    <div class="wrap">
+      <div class="intro-grid">
+        <p class="statement reveal">Drywall is the one trade you look at every day after the remodel is over. We work as though we will be the ones living with it.</p>
+        <div class="reveal" style="--d:.12s">
+          <p>Most of what makes a wall look right happens in the final sixteenth of an inch: how far each coat is feathered, whether the corners are straight, whether anyone held a light to the surface before calling it finished.</p>
+          <p>That is where our attention goes. We hang board so the joints are few and well placed, finish to the level your lighting and paint call for, and keep your home or building clean while we do it. Homeowners, builders, remodelers and property managers in {site.city} hire us for the same reason: the walls look the way they were meant to.</p>
+          <a class="text-link" href="/services/">See everything we do</a>
+        </div>
+      </div>
+      <div class="intro-photos">
+        <figure class="reveal-img">
+          <Picture src={photo('taping-knife-drywall-joint')} alt="Finisher pulling a wide taping knife along a drywall seam" widths={[480, 800, 1200]} sizes="(min-width: 52rem) 55vw, 60vw" formats={['avif', 'webp']} loading="lazy" />
+        </figure>
+        <figure class="reveal-img">
+          <Picture src={photo('finished-room-columns-recessed-lights')} alt="Finished white room with columns and recessed lighting" widths={[360, 600, 900]} sizes="(min-width: 52rem) 35vw, 40vw" formats={['avif', 'webp']} loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="index-head">
+        <div>
+          <p class="kicker reveal">Services</p>
+          <h2 class="reveal">Twelve kinds of drywall work, one standard of finish</h2>
+        </div>
+        <a class="btn btn-line reveal" href="/services/">All services <Arrow /></a>
+      </div>
+      <div class="index-grid">
+        <ul class="svc-list">
+          {services.map((s, i) => (
+            <li class="reveal" style={`--d:${Math.min(i, 5) * 0.05}s`}>
+              <a href={`/services/${s.slug}/`} data-preview-link={s.slug}>
+                <h3>{s.name}</h3>
+                <p>{s.short}</p>
+                <Arrow />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <figure class="svc-preview" data-preview aria-hidden="true">
+          {services.map((s, i) => (
+            <Picture src={photo(s.photo)} alt="" widths={[480, 720]} sizes="35vw" formats={['avif', 'webp']} loading="lazy" class={i === 0 ? 'on' : ''} data-for={s.slug} />
+          ))}
+          <figcaption>Illustrative photography</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-forest on-dark" id="finish-levels">
+    <div class="wrap" data-levels>
+      <p class="kicker reveal">The finish</p>
+      <h2 class="reveal" style="max-width:18ch">What “finished” means depends on the level you ask for</h2>
+      <p class="lead reveal" style="margin-top:1.5rem;max-width:44rem">The drywall industry grades finish from Level 0 to Level 5. Knowing the difference is the simplest way to compare estimates and to get the walls you are expecting. Step through them.</p>
+      <div class="levels-grid">
+        <div class="reveal">
+          <div class="level-tabs" role="tablist" aria-label="Drywall finish levels">
+            {levels.map((l) => (
+              <button type="button" role="tab" id={`level-tab-${l.n}`} aria-controls={`level-panel-${l.n}`} aria-selected={l.n === 4 ? 'true' : 'false'} tabindex={l.n === 4 ? 0 : -1}>
+                <span class="visually-hidden">Level </span>{l.n}
+              </button>
+            ))}
+          </div>
+          {levels.map((l) => (
+            <div class="level-panel" role="tabpanel" id={`level-panel-${l.n}`} aria-labelledby={`level-tab-${l.n}`} hidden={l.n !== 4} tabindex="0">
+              <h3>Level {l.n}: {l.name}</h3>
+              <p>{l.text}</p>
+              <p class="use">Where it belongs: {l.use}</p>
+            </div>
+          ))}
+        </div>
+        <div class="swatch reveal" data-level="4" role="img" aria-label="Diagram of a drywall joint showing tape, coats of compound and skim coat building up by finish level" style="--d:.15s">
+          <span class="paper"></span><span class="seam-v"></span><span class="seam-h"></span><span class="screws"></span>
+          <span class="tape v"></span><span class="tape h"></span>
+          <span class="coat c1 v"></span><span class="coat c1 h"></span><span class="dots"></span>
+          <span class="coat c2 v"></span><span class="coat c2 h"></span>
+          <span class="coat c3 v"></span><span class="coat c3 h"></span>
+          <span class="skim"></span>
+          <span class="label">Schematic, not to scale</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker reveal">Who we work for</p>
+      <h2 class="reveal" style="max-width:17ch;margin-bottom:clamp(2.5rem,5vw,4rem)">Houses and workplaces need different things from a drywall crew</h2>
+      <div class="duo">
+        <article class="reveal">
+          <figure><Picture src={photo('finished-room-smooth-ceiling')} alt="Finished residential room with smooth ceiling, recessed lights and large windows" widths={[480, 800, 1100]} sizes="(min-width: 48rem) 45vw, 100vw" formats={['avif', 'webp']} loading="lazy" /></figure>
+          <h3>In your home</h3>
+          <p>You are living around the work, so cleanliness and predictability matter as much as the finish. We protect floors, seal off the room, tell you who is coming and when, and leave each day tidy.</p>
+          <ul>
+            <li>Kitchen, bath and whole-floor remodels</li>
+            <li>Basement and garage finishing</li>
+            <li>Popcorn ceiling removal and skim coating</li>
+            <li>Cracks, holes and water damage</li>
+          </ul>
+          <a class="text-link" href="/services/residential-drywall-services/">Residential drywall</a>
+        </article>
+        <article class="reveal" style="--d:.12s">
+          <figure><Picture src={photo('commercial-crew-carrying-drywall')} alt="Workers in hard hats carrying drywall through a commercial space under construction" widths={[480, 800, 1100]} sizes="(min-width: 48rem) 45vw, 100vw" formats={['avif', 'webp']} loading="lazy" /></figure>
+          <h3>In your building</h3>
+          <p>A commercial job has drawings, inspections and other trades waiting. We frame and board to the specified assemblies, hold the dates we give, and work nights or weekends when tenants need quiet.</p>
+          <ul>
+            <li>Tenant improvements and office reconfigurations</li>
+            <li>Steel stud framing and rated partitions</li>
+            <li>Retail and restaurant build-outs</li>
+            <li>Repairs in occupied buildings</li>
+          </ul>
+          <a class="text-link" href="/services/commercial-drywall-services/">Commercial drywall</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ivory" id="process">
+    <div class="wrap">
+      <p class="kicker reveal">How we work</p>
+      <h2 class="reveal" style="max-width:16ch">Four stages, and you know where things stand at each</h2>
+      <ol class="steps">
+        <li class="reveal"><h3>Look and price</h3><p>We review your photos or visit the site, ask about paint and lighting, and send a written estimate that spells out scope, finish level and schedule.</p></li>
+        <li class="reveal" style="--d:.08s"><h3>Protect and prepare</h3><p>Floors covered, doorways sealed, vents masked. On commercial sites, common areas and elevators are protected to the building’s rules.</p></li>
+        <li class="reveal" style="--d:.16s"><h3>Hang, tape, finish</h3><p>Board up, joints taped, coats applied and allowed to dry properly between passes. We do not rush compound; that is how cracks begin.</p></li>
+        <li class="reveal" style="--d:.24s"><h3>Light, check, clean</h3><p>Every surface is inspected under a raking light and touched up. Then we vacuum, remove our debris and walk the job with you.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap ba-layout">
+      <div>
+        <p class="kicker reveal">Before and after</p>
+        <h2 class="reveal">From taped board to a room you can paint</h2>
+        <p class="lead reveal" style="margin-top:1.5rem">Drag the handle. The left side is drywall at the taping stage, with joints and fasteners still showing. The right is where finishing ends: one continuous surface.</p>
+        <p class="reveal"><a class="text-link" href="/services/drywall-finishing/">How our finishing works</a></p>
+      </div>
+      <div class="reveal" style="--d:.1s">
+        <BeforeAfter id="ba-home" before="taped-drywall-before-finish" after="finished-room-smooth-ceiling" beforeAlt="room with drywall hung and joints taped" afterAlt="finished white room with smooth walls and ceiling" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sand" id="service-area">
+    <div class="wrap area-grid">
+      <div>
+        <p class="kicker reveal">Service area</p>
+        <h2 class="reveal">{site.city} first, and the communities around it</h2>
+        <p class="reveal" style="margin-top:1.5rem">Most of our work is within a short drive of {site.city}: the ranch and colonial neighborhoods on either side of Calhoun Road, the newer homes toward the west, and the office and retail buildings along the Bluemound Road and Capitol Drive corridors.</p>
+        <p class="reveal">We know what this housing stock tends to need. That means basements with poured walls and sump pumps, ceilings that crack with winter truss movement, and a great many sprayed ceilings from the 1960s through the 1980s.</p>
+      </div>
+      <ul class="area-list reveal" style="--d:.12s">
+        {site.serviceAreas.map((a) => <li>{a}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap faq-grid">
+      <div>
+        <p class="kicker reveal">Questions</p>
+        <h2 class="reveal">Things people ask before they hire us</h2>
+        <p class="reveal" style="margin-top:1.5rem">Something else on your mind? Put it in the estimate form and we will answer it with your quote.</p>
+      </div>
+      <div class="reveal" style="--d:.1s"><Faq items={faqs} /></div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
